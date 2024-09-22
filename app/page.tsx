@@ -1,101 +1,114 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Search, MessageCircle, BookOpen, Calendar } from 'lucide-react'
+import { Navigation } from '../components/navigation'
+import { Footer } from '../components/footer'
+import { Testimonials } from '../components/testimonials'
+import { WhyChooseUs } from '../components/why-choose-us'
+import { LatestTips } from '../components/latest-tips'
+import { PopularServices } from '../components/popular-service'
+import { HeroSection } from '../components/hero'
+
+const testimonials = [
+  {
+    id: 1,
+    text: 'PetCare Portal изменил жизнь моего питомца к лучшему!',
+    author: 'Анна С.',
+  },
+  {
+    id: 2,
+    text: 'Лучший ресурс для владельцев животных, который я когда-либо использовал.',
+    author: 'Иван П.',
+  },
+  {
+    id: 3,
+    text: 'Благодаря советам экспертов, мой щенок стал намного послушнее.',
+    author: 'Мария Д.',
+  },
+]
+
+const featuredServices = [
+  {
+    id: 1,
+    name: 'Ветеринарный осмотр',
+    description: 'Комплексный осмотр вашего питомца',
+    price: 1500,
+    image: '/placeholder-vet.jpg',
+  },
+  {
+    id: 2,
+    name: 'Стрижка собак',
+    description: 'Профессиональный груминг для вашего друга',
+    price: 2000,
+    image: '/placeholder-grooming.jpg',
+  },
+  {
+    id: 3,
+    name: 'Вакцинация',
+    description: 'Защитите вашего питомца от болезней',
+    price: 1000,
+    image: '/placeholder-vaccine.jpg',
+  },
+]
+
+const latestTips = [
+  {
+    id: 1,
+    title: 'Правильное питание для кошек',
+    excerpt:
+      'Узнайте, как составить идеальный рацион для вашего пушистого друга.',
+    image: '/placeholder-cat-food.jpg',
+  },
+  {
+    id: 2,
+    title: 'Уход за зубами собаки',
+    excerpt: 'Советы по поддержанию здоровья зубов вашего питомца.',
+    image: '/placeholder-dog-teeth.jpg',
+  },
+  {
+    id: 3,
+    title: 'Физическая активность для грызунов',
+    excerpt: 'Как обеспечить достаточную активность вашему маленькому питомцу.',
+    image: '/placeholder-hamster.jpg',
+  },
+]
+
+export default function HomePageComponent() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-background to-background/80">
+      <Navigation />
+      <main className="flex-1">
+        <HeroSection />
+        <PopularServices />
+        <LatestTips />
+        <WhyChooseUs />
+        <Testimonials />
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <Footer />
     </div>
-  );
+  )
 }
