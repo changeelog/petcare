@@ -1,8 +1,14 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Calendar, BookOpen, MessageCircle } from 'lucide-react'
+import React from 'react'
+import { motion, Variants } from 'framer-motion'
+import { Calendar, BookOpen, MessageCircle, LucideIcon } from 'lucide-react'
 
-const features = [
+interface Feature {
+  icon: LucideIcon
+  title: string
+  description: string
+}
+
+const features: Feature[] = [
   {
     icon: Calendar,
     title: 'Удобная запись',
@@ -23,15 +29,30 @@ const features = [
   },
 ]
 
-const FeatureCard = ({ icon: Icon, title, description }) => {
-  const [isHovered, setIsHovered] = useState(false)
+const cardVariants: Variants = {
+  initial: {
+    scale: 1,
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    y: 0,
+  },
+  hover: {
+    scale: 1.03,
+    boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+    y: -5,
+    transition: {
+      duration: 0.2,
+      ease: 'easeInOut',
+    },
+  },
+}
 
+const FeatureCard: React.FC<Feature> = ({ icon: Icon, title, description }) => {
   return (
     <motion.div
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-all duration-300 ease-in-out"
-      whileHover={{ scale: 1.05 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      className="bg-white dark:bg-gray-800 rounded-lg p-6 transition-all"
+      variants={cardVariants}
+      initial="initial"
+      whileHover="hover"
     >
       <Icon className="h-12 w-12 text-primary mb-4" />
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
@@ -40,7 +61,7 @@ const FeatureCard = ({ icon: Icon, title, description }) => {
   )
 }
 
-export function WhyChooseUs() {
+export const WhyChooseUs: React.FC = () => {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
       <div className="container px-4 md:px-6 mx-auto">
