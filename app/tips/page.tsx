@@ -76,7 +76,7 @@ const tips = [
   },
 ]
 
-export function PetCareTipsComponent() {
+export default function PetCareTipsComponent() {
   const [selectedTip, setSelectedTip] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [activeCategory, setActiveCategory] = useState('Все')
