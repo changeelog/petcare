@@ -1,9 +1,10 @@
-'use client'
-
-import { useState } from 'react'
+import { Navigation } from '../../widgets/Navigation'
+import { Footer } from '../../widgets/Footer'
+import { WhyChooseUs } from '../../widgets/WhyChooseUs'
+import { LatestTips } from '../../widgets/LatestTips'
+import { PopularServices } from '../../widgets/PopularService'
+import { HeroSection } from '../../widgets/HeroSection'
 import { Metadata } from 'next'
-
-import { RegisterForm, SuccessMessage } from '../../../widgets/Register'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -45,12 +46,17 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function RegisterPage() {
-  const [registrationSuccess, setRegistrationSuccess] = useState(false)
-
-  if (registrationSuccess) {
-    return <SuccessMessage />
-  }
-
-  return <RegisterForm onSuccess={() => setRegistrationSuccess(true)} />
+export default function HomePageComponent() {
+  return (
+    <>
+      <Navigation />
+      <main className="flex-1">
+        <HeroSection />
+        <PopularServices />
+        <LatestTips />
+        <WhyChooseUs />
+      </main>
+      <Footer />
+    </>
+  )
 }

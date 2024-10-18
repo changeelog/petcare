@@ -1,9 +1,6 @@
-'use client'
+import React from 'react'
 
-import { useState } from 'react'
 import { Metadata } from 'next'
-
-import { RegisterForm, SuccessMessage } from '../../../widgets/Register'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -45,12 +42,10 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function RegisterPage() {
-  const [registrationSuccess, setRegistrationSuccess] = useState(false)
-
-  if (registrationSuccess) {
-    return <SuccessMessage />
-  }
-
-  return <RegisterForm onSuccess={() => setRegistrationSuccess(true)} />
+const Page = () => {
+  return (
+    <div>Page</div>
+  )
 }
+
+export default Page
