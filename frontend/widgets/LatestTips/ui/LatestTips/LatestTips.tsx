@@ -2,8 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/shared/ui/Tabs'
-import { useFilteredTips } from '../lib/useFilteredTips'
-import { TipCard } from './TipCard'
+import { useFilteredTips } from '../../lib/useFilteredTips'
+import { TipCard } from '../TipCard'
 
 const variants = {
   hidden: { opacity: 0, y: 20 },
@@ -24,7 +24,10 @@ export function LatestTips() {
           className="w-full"
           onValueChange={setFilter}
         >
-          <TabsList className="mb-8 flex justify-center size-fit mx-auto flex-wrap">
+          <TabsList
+            className="mb-8 flex justify-center size-fit mx-auto flex-wrap"
+            style={{ width: 'fit-content' }}
+          >
             {['all', 'cats', 'dogs', 'other'].map((category) => (
               <TabsTrigger
                 key={category}

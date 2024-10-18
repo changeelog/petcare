@@ -7,7 +7,7 @@ import {
   CardFooter,
 } from '@/shared/ui/Card'
 import { Button } from '@/shared/ui/Button'
-import { Tip } from '../model/types'
+import { Tip } from '../../model/types'
 
 interface TipCardProps {
   tip: Tip
