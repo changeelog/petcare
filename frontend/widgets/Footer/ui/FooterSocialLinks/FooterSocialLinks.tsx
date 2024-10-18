@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Facebook, Twitter, Instagram } from 'lucide-react'
-import { socialLinks } from '../config/footerLinks'
+import { socialLinks } from '../../config/footerLinks'
 
 export function FooterSocialLinks() {
   return (
@@ -9,7 +9,7 @@ export function FooterSocialLinks() {
         <Link
           key={label}
           href={href}
-          className="text-gray-400 hover:text-primary transition-colors"
+          className="text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors"
           aria-label={label}
         >
           {icon === 'Facebook' && <Facebook size={20} />}
