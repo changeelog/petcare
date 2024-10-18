@@ -1,1 +1,1 @@
-export * from './ui/Navigation'
+export * from './ui/Navigation/Navigation'

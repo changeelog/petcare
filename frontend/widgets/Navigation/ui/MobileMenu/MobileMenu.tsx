@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { menuItems } from '../config/menuItems'
-import { MenuItem } from './MenuItems'
-import { menuVariants } from '../lib/animations'
+import { menuItems } from '../../config/menuItems'
+import { MenuItem } from '../MenuItems'
+import { menuVariants } from '../../lib/animations'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -13,14 +13,14 @@ export function MobileMenu({ isOpen, closeMenu }: MobileMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.nav
-          className="fixed inset-0 z-40 bg-white/95 backdrop-blur-sm h-screen"
+          className="fixed inset-0 z-40 bg-white/95 backdrop-blur-sm h-screen overflow-y-auto"
           initial="closed"
           animate="open"
           exit="closed"
           variants={menuVariants}
           transition={{ duration: 0.2 }}
         >
-          <div className="container mx-auto px-4 h-full flex flex-col items-center justify-center">
+          <div className="container mx-auto px-4 h-full flex flex-col items-center justify-center space-y-6">
             {menuItems.map((item, index) => (
               <MenuItem
                 key={item.href}

@@ -1,32 +1,38 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
+
+const MOBILE_BREAKPOINT = 768
 
 export function useResponsiveMenu(isMenuOpen: boolean, closeMenu: () => void) {
-  useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== 'undefined' && window.innerWidth > 768) {
-        closeMenu()
-      }
-    }
-
-    const handleEscape = (e: KeyboardEvent) => e.key === 'Escape' && closeMenu()
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', handleResize)
-      document.addEventListener('keydown', handleEscape)
-
-      return () => {
-        window.removeEventListener('resize', handleResize)
-        document.removeEventListener('keydown', handleEscape)
-      }
+  const handleResize = useCallback(() => {
+    if (window.innerWidth > MOBILE_BREAKPOINT) {
+      closeMenu()
     }
   }, [closeMenu])
 
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = isMenuOpen ? 'hidden' : ''
-      return () => {
-        document.body.style.overflow = ''
+  const handleEscape = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeMenu()
       }
+    },
+    [closeMenu],
+  )
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    document.addEventListener('keydown', handleEscape)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [handleResize, handleEscape])
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
+
+    return () => {
+      document.body.style.overflow = ''
     }
   }, [isMenuOpen])
 }
