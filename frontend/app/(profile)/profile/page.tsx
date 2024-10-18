@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '../../../../shared/ui/button'
-import { Input } from '../../../../shared/ui/input'
-import { Label } from '../../../../shared/ui/label'
-import { Textarea } from '../../../../shared/ui/textarea'
+import { Button } from '@/shared/ui/Button'
+import { Input } from '@/shared/ui/Input'
+import { Label } from '@/shared/ui/Label'
+import { Textarea } from '@/shared/ui/Textarea'
 import {
   Card,
   CardContent,
@@ -13,18 +13,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../../../../shared/ui/card'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '../../../../shared/ui/avatar'
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '../../../../shared/ui/tabs'
+} from '@/shared/ui/Card'
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/Avatar'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/Tabs'
 import {
   Select,
   SelectContent,
@@ -33,17 +24,13 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '../../../../shared/ui/select'
-import { Switch } from '../../../../shared/ui/switch'
-import { Badge } from '../../../../shared/ui/badge'
-import { Progress } from '../../../../shared/ui/progress'
-import { Calendar } from '../../../../shared/ui/calendar'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '../../../../shared/ui/popover'
-import { ScrollArea } from '../../../../shared/ui/scroll-area'
+} from '@/shared/ui/Select'
+import { Switch } from '@/shared/ui/Switch'
+import { Badge } from '@/shared/ui/Badge'
+import { Progress } from '@/shared/ui/Progress'
+import { Calendar } from '@/shared/ui/Calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/Popover'
+import { ScrollArea } from '@/shared/ui/ScrollArea'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -54,13 +41,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../../../../shared/ui/alert-dialog'
+} from '@/shared/ui/AlertDialog'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '../../../../shared/ui/accordion'
+} from '@/shared/ui/Accordion'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import {
@@ -79,47 +66,6 @@ import {
   Award,
   Heart,
 } from 'lucide-react'
-import { Metadata } from 'next'
-
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: 'Page Title',
-    description: 'Page description',
-    openGraph: {
-      title: 'Open Graph Title',
-      description: 'Open Graph Description',
-      url: 'https://www.example.com/page',
-      siteName: 'Site Name',
-      images: [
-        {
-          url: 'https://www.example.com/og-image.jpg',
-          width: 800,
-          height: 600,
-          alt: 'Og Image Alt',
-        },
-      ],
-      locale: 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'Twitter Title',
-      description: 'Twitter Description',
-      creator: '@username',
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-  }
-}
 
 // Type for user profile data
 type UserProfileData = {
@@ -561,7 +507,7 @@ export default function UserProfile() {
                         id="bio"
                         name="bio"
                         value={userData.bio}
-                        onChange={handleInputChange}
+                        // onChange={handleInputChange}
                         disabled={!editMode}
                         rows={4}
                       />
@@ -880,7 +826,7 @@ export default function UserProfile() {
                           <Calendar
                             mode="single"
                             selected={selectedDate}
-                            onSelect={setSelectedDate}
+                            // onSelect={setSelectedDate}
                             initialFocus
                           />
                         </PopoverContent>
