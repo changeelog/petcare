@@ -1,8 +1,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react'
-import { SearchResult } from '../model/types'
-import { searchCategories } from '../config/searchCategories'
+import { SearchResult } from '../../model/types'
+import { searchCategories } from '../../config/searchCategories'
 
 interface SearchResultsProps {
   searchResults: SearchResult[]

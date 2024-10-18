@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/Button'
 import { motion } from 'framer-motion'
-import { searchCategories } from '../config/searchCategories'
+import { searchCategories } from '../../config/searchCategories'
 
 interface SearchCategoriesProps {
   selectedCategory: string

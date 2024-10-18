@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
-import { HeroContent } from './HeroContent'
-import { SearchButton } from './SearchButton'
-import { SearchModal } from './SearchModal'
+import { HeroContent } from '../HeroContent/HeroContent'
+import { SearchButton } from '../SearchButton/SearchButton'
+import { SearchModal } from '../SearchModal/SearchModal'
 import { useKeyPress } from '@/hooks/useKeyPress'
 
 export const HeroSection: React.FC = () => {

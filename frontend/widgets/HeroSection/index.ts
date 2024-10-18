@@ -1,1 +1,1 @@
-export * from './ui/HeroSection'
+export * from './ui/HeroSection/HeroSection'

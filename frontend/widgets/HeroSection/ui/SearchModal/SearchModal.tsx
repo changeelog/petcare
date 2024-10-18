@@ -1,11 +1,11 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { SearchInput } from './SearchInput'
-import { SearchCategories } from './SearchCategories'
-import { SearchResults } from './SearchResults'
-import { useSearch } from '../lib/useSearch'
-import { useSearchKeyboardNavigation } from '../lib/useSearchKeyboardNavigation'
-import { SearchResult } from '../model/types'
+import { SearchInput } from '../SearchInput/SearchInput'
+import { SearchCategories } from '../SearchCategories'
+import { SearchResults } from '../SearchResults'
+import { useSearch } from '../../lib/useSearch'
+import { useSearchKeyboardNavigation } from '../../lib/useSearchKeyboardNavigation'
+import { SearchResult } from '../../model/types'
 
 interface SearchModalProps {
   isOpen: boolean
