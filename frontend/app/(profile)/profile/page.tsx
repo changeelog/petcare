@@ -5,32 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/shared/ui/Button'
 import { Input } from '@/shared/ui/Input'
 import { Label } from '@/shared/ui/Label'
-import { Textarea } from '@/shared/ui/Textarea'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/shared/ui/Card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/Avatar'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/ui/Tabs'
+import { Card, CardContent, CardHeader } from '@/shared/ui/Card'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/shared/ui/Dialog'
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/shared/ui/Select'
 import { Switch } from '@/shared/ui/Switch'
-import { Badge } from '@/shared/ui/Badge'
-import { Progress } from '@/shared/ui/Progress'
+import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/Tabs'
 import { Calendar } from '@/shared/ui/Calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/Popover'
-import { ScrollArea } from '@/shared/ui/ScrollArea'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -42,928 +38,665 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/ui/AlertDialog'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/shared/ui/Accordion'
+import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import {
-  CalendarIcon,
+  Edit2,
+  Save,
+  Camera,
   PlusCircle,
   Trash2,
-  Edit,
-  Save,
-  X,
-  Camera,
-  Lock,
+  Cat,
+  Dog,
+  Bird,
+  Mouse,
+  Rabbit,
+  UserCircle,
+  PawPrint,
+  Calendar as CalendarIcon,
+  Settings,
+  Bell,
   Mail,
-  Phone,
-  Calendar as CalendarIcon2,
-  Activity,
-  Award,
-  Heart,
+  Lock,
 } from 'lucide-react'
+import { useToast } from '../../../hooks/use-toast'
 
-// Type for user profile data
-type UserProfileData = {
-  name: string
-  email: string
-  avatar: string
-  phone: string
-  address: string
-  bio: string
-  memberSince: string
-  totalAppointments: number
-  loyaltyPoints: number
-}
-
-// Type for pet data
-type PetData = {
-  id: number
-  name: string
-  type: string
-  breed: string
-  age: number | string // Age can be entered as a string (e.g., from form input) or stored as a number
-  avatar: string
-  health: number
-  lastCheckup: string
-}
-
-// Type for appointment data
-type AppointmentData = {
-  id: number
-  service: string
-  date: string
-  time: string
-  status: string
-  pet: string
-}
-
-// Type for new pet form (age might be initially an empty string)
-type NewPetData = {
-  name: string
-  type: string
-  breed: string
-  age: string
-}
-
-// Мок-данные для демонстрации
-const user = {
-  name: 'Анна Петрова',
-  email: 'anna@example.com',
-  avatar: '/placeholder.svg?height=100&width=100',
-  phone: '+7 (999) 123-45-67',
-  address: 'г. Москва, ул. Пушкина, д. 10',
-  bio: 'Любительница животных и природы. Счастливая хозяйка двух собак и кошки.',
-  memberSince: '2021-03-15',
-  totalAppointments: 15,
-  loyaltyPoints: 250,
-}
-
-const pets = [
-  {
-    id: 1,
-    name: 'Барсик',
-    type: 'Кот',
-    breed: 'Сибирская кошка',
-    age: 3,
-    avatar: '/placeholder.svg?height=50&width=50',
-    health: 95,
-    lastCheckup: '2024-05-01',
-  },
-  {
-    id: 2,
-    name: 'Рекс',
-    type: 'Собака',
-    breed: 'Немецкая овчарка',
-    age: 5,
-    avatar: '/placeholder.svg?height=50&width=50',
-    health: 88,
-    lastCheckup: '2024-04-15',
-  },
+const petTypes = [
+  { name: 'Кошка', icon: Cat },
+  { name: 'Собака', icon: Dog },
+  { name: 'Птица', icon: Bird },
+  { name: 'Грызун', icon: Mouse },
+  { name: 'Кролик', icon: Rabbit },
 ]
 
-const appointments = [
-  {
-    id: 1,
-    service: 'Ветеринарный осмотр',
-    date: '2024-06-15',
-    time: '10:00',
-    status: 'Предстоит',
-    pet: 'Барсик',
-  },
-  {
-    id: 2,
-    service: 'Стрижка',
-    date: '2024-06-10',
-    time: '14:30',
-    status: 'Завершено',
-    pet: 'Рекс',
-  },
-]
+const services = ['Стрижка', 'Вакцинация', 'Осмотр', 'Груминг']
 
-const recentActivities = [
-  {
-    id: 1,
-    type: 'appointment',
-    description: 'Запись на прием',
-    date: '2024-06-01',
+const inputVariants = {
+  readonly: { backgroundColor: 'transparent', borderColor: 'transparent' },
+  editable: {
+    backgroundColor: 'var(--input-background)',
+    borderColor: 'var(--input-border)',
   },
-  { id: 2, type: 'purchase', description: 'Покупка корма', date: '2024-05-28' },
-  { id: 3, type: 'review', description: 'Оставлен отзыв', date: '2024-05-25' },
-]
+}
 
-export default function UserProfile() {
-  const [userData, setUserData] = useState<UserProfileData>(user)
-  const [activeTab, setActiveTab] = useState('dashboard')
-  const [userPets, setUserPets] = useState<PetData[]>(pets)
-  const [userAppointments, setUserAppointments] =
-    useState<AppointmentData[]>(appointments)
-  const [newPet, setNewPet] = useState<NewPetData>({
-    name: '',
-    type: '',
-    breed: '',
-    age: '',
+const petVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+}
+
+export default function Profile() {
+  const [activeTab, setActiveTab] = useState('personal')
+  const [isEditing, setIsEditing] = useState(false)
+  const [userInfo, setUserInfo] = useState({
+    name: 'Иван Иванов',
+    email: 'ivan@example.com',
+    phone: '+7 (999) 123-45-67',
   })
-  const [editMode, setEditMode] = useState(false)
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [isAvatarHovered, setIsAvatarHovered] = useState(false)
+  const [pets, setPets] = useState([
+    { id: 1, name: 'Барсик', type: 'Кошка', age: 3 },
+    { id: 2, name: 'Рекс', type: 'Собака', age: 5 },
+  ])
+  const [newPet, setNewPet] = useState({ name: '', type: '', age: '' })
+  const [isPetDialogOpen, setIsPetDialogOpen] = useState(false)
+  const [appointments, setAppointments] = useState([
+    {
+      id: 1,
+      service: 'Стрижка',
+      date: new Date(),
+      status: 'предстоит',
+    },
+    {
+      id: 2,
+      service: 'Вакцинация',
+      date: new Date(),
+      status: 'завершено',
+    },
+  ])
+  const [newAppointment, setNewAppointment] = useState({
+    service: '',
+    date: new Date(),
+  })
+  const [isAppointmentDialogOpen, setIsAppointmentDialogOpen] = useState(false)
+  const [settings, setSettings] = useState({
+    notifications: true,
+    newsletter: false,
+  })
+  const { toast } = useToast()
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setUserData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSaveProfile = () => {
-    // Здесь будет логика сохранения данных на сервере
-    setEditMode(false)
+  const handleSavePersonalInfo = () => {
+    setIsEditing(false)
+    toast({
+      title: 'Профиль обновлен',
+      description: 'Ваша личная информация была успешно сохранена.',
+    })
   }
 
   const handleAddPet = () => {
-    if (newPet.name && newPet.type) {
-      setUserPets([
-        ...userPets,
-        {
-          ...newPet,
-          id: userPets.length + 1,
-          avatar: '/placeholder.svg?height=50&width=50',
-          health: 100,
-          lastCheckup: format(new Date(), 'yyyy-MM-dd'),
-        },
-      ])
-      setNewPet({ name: '', type: '', breed: '', age: '' })
+    if (newPet.name && newPet.type && newPet.age) {
+      setPets([...pets, { ...newPet, id: Date.now(), age: Number(newPet.age) }])
+      setNewPet({ name: '', type: '', age: '' })
+      setIsPetDialogOpen(false)
+      toast({
+        title: 'Питомец добавлен',
+        description: `${newPet.name} успешно добавлен в ваш список питомцев.`,
+      })
     }
   }
 
   const handleDeletePet = (id: number) => {
-    setUserPets(userPets.filter((pet) => pet.id !== id))
+    const petToDelete = pets.find((pet) => pet.id === id)
+    setPets(pets.filter((pet) => pet.id !== id))
+    toast({
+      title: 'Питомец удален',
+      description: `${petToDelete?.name} был удален из вашего списка питомцев.`,
+      variant: 'destructive',
+    })
+  }
+
+  const handleAddAppointment = () => {
+    if (newAppointment.service && newAppointment.date) {
+      setAppointments([
+        ...appointments,
+        { ...newAppointment, id: Date.now(), status: 'предстоит' },
+      ])
+      setNewAppointment({ service: '', date: new Date() })
+      setIsAppointmentDialogOpen(false)
+      toast({
+        title: 'Запись создана',
+        description: `Вы успешно записались на ${newAppointment.service}.`,
+      })
+    }
   }
 
   const handleDeleteAppointment = (id: number) => {
-    setUserAppointments(userAppointments.filter((app) => app.id !== id))
+    const appointmentToDelete = appointments.find(
+      (appointment) => appointment.id === id,
+    )
+    setAppointments(appointments.filter((appointment) => appointment.id !== id))
+    toast({
+      title: 'Запись удалена',
+      description: `Запись на ${appointmentToDelete?.service} была удалена.`,
+      variant: 'destructive',
+    })
   }
 
-  const calculateLoyaltyLevel = (points: number) => {
-    if (points < 100) return 'Бронзовый'
-    if (points < 250) return 'Серебряный'
-    if (points < 500) return 'Золотой'
-    return 'Платиновый'
+  const handleSettingChange = (setting: keyof typeof settings) => {
+    setSettings((prev) => ({ ...prev, [setting]: !prev[setting] }))
+    toast({
+      title: 'Настройки обновлены',
+      description: `Настройка "${setting}" была изменена.`,
+    })
   }
 
   return (
-    <div className="container mx-auto p-4 space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex items-center justify-between"
-      >
-        <h1 className="text-4xl font-bold">
-          Добро пожаловать, {userData.name}!
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100">
+          Профиль
         </h1>
-        <Badge
-          variant="secondary"
-          className="text-lg px-3 py-1"
-        >
-          {calculateLoyaltyLevel(userData.loyaltyPoints)} уровень
-        </Badge>
-      </motion.div>
-
-      <Tabs
-        value={activeTab}
-        onValueChange={setActiveTab}
-        className="space-y-4"
-      >
-        <TabsList className="grid w-full grid-cols-4 lg:grid-cols-5">
-          <TabsTrigger value="dashboard">Обзор</TabsTrigger>
-          <TabsTrigger value="personal">Профиль</TabsTrigger>
-          <TabsTrigger value="pets">Питомцы</TabsTrigger>
-          <TabsTrigger value="appointments">Записи</TabsTrigger>
-          <TabsTrigger
-            value="settings"
-            className="hidden lg:block"
-          >
-            Настройки
-          </TabsTrigger>
-        </TabsList>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <TabsContent value="dashboard">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Панель управления</CardTitle>
-                  <CardDescription>
-                    Обзор вашей активности и статистики
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-8">
-                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                          Всего записей
-                        </CardTitle>
-                        <CalendarIcon2 className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold">
-                          {userData.totalAppointments}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                          Баллы лояльности
-                        </CardTitle>
-                        <Award className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold">
-                          {userData.loyaltyPoints}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                          Питомцы
-                        </CardTitle>
-                        <Heart className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold">
-                          {userPets.length}
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                          С нами с
-                        </CardTitle>
-                        <Activity className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-2xl font-bold">
-                          {format(new Date(userData.memberSince), 'MMM yyyy', {
-                            locale: ru,
-                          })}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <Card className="col-span-1">
-                      <CardHeader>
-                        <CardTitle>Ближайшие записи</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ScrollArea className="h-[200px]">
-                          {userAppointments
-                            .filter((app) => app.status === 'Предстоит')
-                            .map((app) => (
-                              <div
-                                key={app.id}
-                                className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
-                              >
-                                <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-                                <div className="space-y-1">
-                                  <p className="text-sm font-medium leading-none">
-                                    {app.service}
-                                  </p>
-                                  <p className="text-sm text-muted-foreground">
-                                    {format(new Date(app.date), 'dd MMM yyyy', {
-                                      locale: ru,
-                                    })}
-                                    , {app.time}
-                                  </p>
-                                  <Badge variant="outline">{app.pet}</Badge>
-                                </div>
-                              </div>
-                            ))}
-                        </ScrollArea>
-                      </CardContent>
-                    </Card>
-                    <Card className="col-span-1">
-                      <CardHeader>
-                        <CardTitle>Недавняя активность</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ScrollArea className="h-[200px]">
-                          {recentActivities.map((activity) => (
-                            <div
-                              key={activity.id}
-                              className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
-                            >
-                              <span className="flex h-2 w-2 translate-y-1 rounded-full bg-green-500" />
-                              <div className="space-y-1">
-                                <p className="text-sm font-medium leading-none">
-                                  {activity.description}
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                  {format(
-                                    new Date(activity.date),
-                                    'dd MMM yyyy',
-                                    { locale: ru },
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                        </ScrollArea>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="personal">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Личная информация</CardTitle>
-                  <CardDescription>
-                    Управляйте вашей личной информацией и данными профиля
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="relative">
-                      <Avatar className="w-24 h-24">
+        <Card className="w-full max-w-4xl mx-auto">
+          <CardHeader>
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger
+                  value="personal"
+                  className="flex items-center space-x-2"
+                >
+                  <UserCircle className="w-5 h-5" />
+                  <span>Личная информация</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="pets"
+                  className="flex items-center space-x-2"
+                >
+                  <PawPrint className="w-5 h-5" />
+                  <span>Питомцы</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="appointments"
+                  className="flex items-center space-x-2"
+                >
+                  <CalendarIcon className="w-5 h-5" />
+                  <span>Записи</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="settings"
+                  className="flex items-center space-x-2"
+                >
+                  <Settings className="w-5 h-5" />
+                  <span>Настройки</span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </CardHeader>
+          <CardContent>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {activeTab === 'personal' && (
+                  <div className="space-y-6">
+                    <div className="flex items-center space-x-4">
+                      <Avatar className="h-24 w-24 border-2 border-blue-500 dark:border-blue-400">
                         <AvatarImage
-                          src={userData.avatar}
-                          alt={userData.name}
+                          src="/placeholder.svg?height=96&width=96"
+                          alt={userInfo.name}
                         />
-                        <AvatarFallback>{userData.name[0]}</AvatarFallback>
+                        <AvatarFallback>{userInfo.name[0]}</AvatarFallback>
                       </Avatar>
-                      {editMode && (
+                      <Button
+                        variant="outline"
+                        className="relative overflow-hidden"
+                      >
+                        <input
+                          type="file"
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          onChange={() =>
+                            toast({
+                              title: 'Фото обновлено',
+                              description: 'Ваше новое фото профиля загружено.',
+                            })
+                          }
+                        />
+                        <Camera className="mr-2 h-4 w-4" />
+                        Изменить фото
+                      </Button>
+                    </div>
+                    <div className="space-y-4">
+                      {Object.entries(userInfo).map(([key, value]) => (
                         <div
-                          className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-full cursor-pointer transition-opacity duration-200"
-                          onMouseEnter={() => setIsAvatarHovered(true)}
-                          onMouseLeave={() => setIsAvatarHovered(false)}
+                          key={key}
+                          className="space-y-2"
                         >
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: isAvatarHovered ? 1 : 0 }}
-                            transition={{ duration: 0.2 }}
+                          <Label
+                            htmlFor={key}
+                            className="text-sm font-medium text-gray-700 dark:text-gray-300"
                           >
-                            <Camera className="text-white" />
+                            {key === 'name'
+                              ? 'Имя'
+                              : key === 'email'
+                              ? 'Email'
+                              : 'Телефон'}
+                          </Label>
+                          <motion.div
+                            initial="readonly"
+                            animate={isEditing ? 'editable' : 'readonly'}
+                            variants={inputVariants}
+                          >
+                            <Input
+                              id={key}
+                              type={key === 'email' ? 'email' : 'text'}
+                              value={value}
+                              onChange={(e) =>
+                                setUserInfo({
+                                  ...userInfo,
+                                  [key]: e.target.value,
+                                })
+                              }
+                              disabled={!isEditing}
+                              className="transition-all duration-300 ease-in-out"
+                            />
                           </motion.div>
                         </div>
+                      ))}
+                    </div>
+                    <Button
+                      onClick={() =>
+                        isEditing
+                          ? handleSavePersonalInfo()
+                          : setIsEditing(true)
+                      }
+                      className="w-full sm:w-auto"
+                    >
+                      {isEditing ? (
+                        <>
+                          <Save className="mr-2 h-4 w-4" />
+                          Сохранить
+                        </>
+                      ) : (
+                        <>
+                          <Edit2 className="mr-2 h-4 w-4" />
+                          Редактировать
+                        </>
                       )}
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold">{userData.name}</h2>
-                      <p className="text-muted-foreground">{userData.email}</p>
-                    </div>
-                    {!editMode && (
-                      <Button
-                        variant="outline"
-                        onClick={() => setEditMode(true)}
-                      >
-                        <Edit className="mr-2 h-4 w-4" /> Редактировать
-                      </Button>
-                    )}
+                    </Button>
                   </div>
-                  <form className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Имя</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          value={userData.name}
-                          onChange={handleInputChange}
-                          disabled={!editMode}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={userData.email}
-                          onChange={handleInputChange}
-                          disabled={!editMode}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Телефон</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          value={userData.phone}
-                          onChange={handleInputChange}
-                          disabled={!editMode}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="address">Адрес</Label>
-                        <Input
-                          id="address"
-                          name="address"
-                          value={userData.address}
-                          onChange={handleInputChange}
-                          disabled={!editMode}
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="bio">О себе</Label>
-                      <Textarea
-                        id="bio"
-                        name="bio"
-                        value={userData.bio}
-                        // onChange={handleInputChange}
-                        disabled={!editMode}
-                        rows={4}
-                      />
-                    </div>
-                  </form>
-                </CardContent>
-                <CardFooter>
-                  {editMode && (
-                    <div className="flex space-x-2">
-                      <Button onClick={handleSaveProfile}>
-                        <Save className="mr-2 h-4 w-4" /> Сохранить
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => setEditMode(false)}
-                      >
-                        <X className="mr-2 h-4 w-4" /> Отмена
-                      </Button>
-                    </div>
-                  )}
-                </CardFooter>
-              </Card>
-            </TabsContent>
+                )}
 
-            <TabsContent value="pets">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Мои питомцы</CardTitle>
-                  <CardDescription>
-                    Управляйте информацией о ваших питомцах
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
+                {activeTab === 'pets' && (
                   <div className="space-y-6">
-                    {userPets.map((pet) => (
-                      <Accordion
-                        type="single"
-                        collapsible
-                        key={pet.id}
-                      >
-                        <AccordionItem value={`pet-${pet.id}`}>
-                          <AccordionTrigger>
+                    <AnimatePresence>
+                      {pets.map((pet) => {
+                        const PetIcon =
+                          petTypes.find((type) => type.name === pet.type)
+                            ?.icon || Cat
+                        return (
+                          <motion.div
+                            key={pet.id}
+                            variants={petVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            transition={{ duration: 0.3 }}
+                            className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm"
+                          >
                             <div className="flex items-center space-x-4">
-                              <Avatar>
-                                <AvatarImage
-                                  src={pet.avatar}
-                                  alt={pet.name}
-                                />
-                                <AvatarFallback>{pet.name[0]}</AvatarFallback>
-                              </Avatar>
+                              <div className="bg-blue-100 dark:bg-blue-900 p-2 rounded-full">
+                                <PetIcon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                              </div>
                               <div>
-                                <h3 className="font-semibold">{pet.name}</h3>
-                                <p className="text-sm text-muted-foreground">
-                                  {pet.type}, {pet.breed}
+                                <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+                                  {pet.name}
+                                </h3>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                  {pet.type}, {pet.age} лет
                                 </p>
                               </div>
                             </div>
-                          </AccordionTrigger>
-                          <AccordionContent>
-                            <div className="pt-4 space-y-4">
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <Label>Возраст</Label>
-                                  <p>{pet.age} лет</p>
-                                </div>
-                                <div>
-                                  <Label>Последний осмотр</Label>
-                                  <p>
-                                    {format(
-                                      new Date(pet.lastCheckup),
-                                      'dd MMM yyyy',
-                                      { locale: ru },
-                                    )}
-                                  </p>
-                                </div>
-                              </div>
-                              <div>
-                                <Label>Состояние здоровья</Label>
-                                <div className="flex items-center space-x-2">
-                                  <Progress
-                                    value={pet.health}
-                                    className="w-full"
-                                  />
-                                  <span>{pet.health}%</span>
-                                </div>
-                              </div>
-                              <div className="flex justify-end space-x-2">
-                                <Button variant="outline">Редактировать</Button>
-                                <AlertDialog>
-                                  <AlertDialogTrigger asChild>
-                                    <Button variant="destructive">
-                                      Удалить
-                                    </Button>
-                                  </AlertDialogTrigger>
-                                  <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                      <AlertDialogTitle>
-                                        Вы уверены?
-                                      </AlertDialogTitle>
-                                      <AlertDialogDescription>
-                                        Это действие нельзя отменить. Вы
-                                        действительно хотите удалить информацию
-                                        о питомце {pet.name}?
-                                      </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                      <AlertDialogCancel>
-                                        Отмена
-                                      </AlertDialogCancel>
-                                      <AlertDialogAction
-                                        onClick={() => handleDeletePet(pet.id)}
-                                      >
-                                        Удалить
-                                      </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                  </AlertDialogContent>
-                                </AlertDialog>
-                              </div>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    ))}
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="font-semibold mb-2">
-                      Добавить нового питомца
-                    </h3>
-                    <div className="space-y-2">
-                      <Input
-                        placeholder="Имя питомца"
-                        value={newPet.name}
-                        onChange={(e) =>
-                          setNewPet({ ...newPet, name: e.target.value })
-                        }
-                      />
-                      <Select
-                        value={newPet.type}
-                        onValueChange={(value) =>
-                          setNewPet({ ...newPet, type: value })
-                        }
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Выберите тип" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Выберите тип</SelectLabel>
-                            <SelectItem value="Кот">Кот</SelectItem>
-                            <SelectItem value="Собака">Собака</SelectItem>
-                            <SelectItem value="Птица">Птица</SelectItem>
-                            <SelectItem value="Грызун">Грызут</SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                      <Input
-                        placeholder="Порода"
-                        value={newPet.breed}
-                        onChange={(e) =>
-                          setNewPet({ ...newPet, breed: e.target.value })
-                        }
-                      />
-                      <Input
-                        placeholder="Возраст"
-                        type="number"
-                        value={newPet.age}
-                        onChange={(e) =>
-                          setNewPet({ ...newPet, age: e.target.value })
-                        }
-                      />
-                      <Button onClick={handleAddPet}>
-                        <PlusCircle className="mr-2 h-4 w-4" /> Добавить питомца
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="appointments">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Мои записи</CardTitle>
-                  <CardDescription>
-                    Управляйте вашими записями на услуги
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {userAppointments.map((appointment) => (
-                      <div
-                        key={appointment.id}
-                        className="flex items-center justify-between p-4 bg-muted rounded-lg"
-                      >
-                        <div>
-                          <h3 className="font-semibold">
-                            {appointment.service}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {format(
-                              new Date(appointment.date),
-                              'dd MMMM yyyy',
-                              { locale: ru },
-                            )}
-                            , {appointment.time}
-                          </p>
-                          <Badge
-                            variant="outline"
-                            className="mt-1"
-                          >
-                            {appointment.pet}
-                          </Badge>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleDeletePet(pet.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </motion.div>
+                        )
+                      })}
+                    </AnimatePresence>
+                    <Dialog
+                      open={isPetDialogOpen}
+                      onOpenChange={setIsPetDialogOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <Button className="w-full">
+                          <PlusCircle className="mr-2 h-4 w-4" />
+                          Добавить питомца
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Добавить нового питомца</DialogTitle>
+                          <DialogDescription>
+                            Введите информацию о вашем питомце
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4 py-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="pet-name">Имя питомца</Label>
+                            <Input
+                              id="pet-name"
+                              value={newPet.name}
+                              onChange={(e) =>
+                                setNewPet({ ...newPet, name: e.target.value })
+                              }
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="pet-type">Тип питомца</Label>
+                            <Select
+                              value={newPet.type}
+                              onValueChange={(value) =>
+                                setNewPet({ ...newPet, type: value })
+                              }
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите тип питомца" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {petTypes.map((type) => (
+                                  <SelectItem
+                                    key={type.name}
+                                    value={type.name}
+                                  >
+                                    <div className="flex items-center">
+                                      <type.icon className="mr-2 h-4 w-4" />
+                                      {type.name}
+                                    </div>
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="pet-age">Возраст питомца</Label>
+                            <Input
+                              id="pet-age"
+                              type="number"
+                              value={newPet.age}
+                              onChange={(e) =>
+                                setNewPet({ ...newPet, age: e.target.value })
+                              }
+                            />
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Badge
-                            variant={
-                              appointment.status === 'Предстоит'
-                                ? 'default'
-                                : 'secondary'
+                        <DialogFooter>
+                          <Button onClick={handleAddPet}>Добавить</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                )}
+
+                {activeTab === 'appointments' && (
+                  <div className="space-y-6">
+                    <AnimatePresence>
+                      {appointments.map((appointment) => (
+                        <motion.div
+                          key={appointment.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{
+                            opacity: 0,
+                            y: -20,
+                            transition: { duration: 0.2 },
+                          }}
+                          transition={{ duration: 0.3 }}
+                          className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm"
+                        >
+                          <div>
+                            <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+                              {appointment.service}
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                              {format(appointment.date, 'dd MMMM yyyy', {
+                                locale: ru,
+                              })}
+                            </p>
+                            <span
+                              className={cn(
+                                'inline-block px-2 py-1 text-xs rounded-full',
+                                appointment.status === 'предстоит'
+                                  ? 'bg-yellow-100 text-yellow-800'
+                                  : 'bg-green-100 text-green-800',
+                              )}
+                            >
+                              {appointment.status}
+                            </span>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() =>
+                              handleDeleteAppointment(appointment.id)
                             }
                           >
-                            {appointment.status}
-                          </Badge>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button
-                                variant="destructive"
-                                size="icon"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Вы уверены?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Это действие нельзя отменить. Вы действительно
-                                  хотите удалить запись на {appointment.service}
-                                  ?
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Отмена</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() =>
-                                    handleDeleteAppointment(appointment.id)
-                                  }
-                                >
-                                  Удалить
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="font-semibold mb-2">
-                      Запланировать новую запись
-                    </h3>
-                    <div className="space-y-2">
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Выберите услугу" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Выберите услугу</SelectLabel>
-                            <SelectItem value="Ветеринарный осмотр">
-                              Ветеринарный осмотр
-                            </SelectItem>
-                            <SelectItem value="Стрижка">Стрижка</SelectItem>
-                            <SelectItem value="Вакцинация">
-                              Вакцинация
-                            </SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Выберите питомца" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Выберите питомца</SelectLabel>
-                            {userPets.map((pet) => (
-                              <SelectItem
-                                key={pet.id}
-                                value={pet.name}
-                              >
-                                {pet.name}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className="w-full justify-start text-left font-normal"
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {selectedDate ? (
-                              format(selectedDate, 'PPP', { locale: ru })
-                            ) : (
-                              <span>Выберите дату</span>
-                            )}
+                            <Trash2 className="h-4 w-4" />
                           </Button>
-                        </PopoverTrigger>
-                        <PopoverContent
-                          className="w-auto p-0"
-                          align="start"
-                        >
-                          <Calendar
-                            mode="single"
-                            selected={selectedDate}
-                            // onSelect={setSelectedDate}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Выберите время" />
-                        </SelectTrigger>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
+                    <Dialog
+                      open={isAppointmentDialogOpen}
+                      onOpenChange={setIsAppointmentDialogOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <Button className="w-full">
+                          <PlusCircle className="mr-2 h-4 w-4" />
+                          Создать запись
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Создать новую запись</DialogTitle>
+                          <DialogDescription>
+                            Выберите услугу и дату
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4 py-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="service">Услуга</Label>
+                            <Select
+                              value={newAppointment.service}
+                              onValueChange={(value) =>
+                                setNewAppointment({
+                                  ...newAppointment,
+                                  service: value,
+                                })
+                              }
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Выберите услугу" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {services.map((service) => (
+                                  <SelectItem
+                                    key={service}
+                                    value={service}
+                                  >
+                                    {service}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Дата</Label>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant={'outline'}
+                                  className={cn(
+                                    'w-full justify-start text-left font-normal',
+                                    !newAppointment.date &&
+                                      'text-muted-foreground',
+                                  )}
+                                >
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {newAppointment.date ? (
+                                    format(newAppointment.date, 'PPP', {
+                                      locale: ru,
+                                    })
+                                  ) : (
+                                    <span>Выберите дату</span>
+                                  )}
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                  mode="single"
+                                  selected={newAppointment.date}
+                                  onSelect={(date) =>
+                                    date &&
+                                    setNewAppointment({
+                                      ...newAppointment,
+                                      date,
+                                    })
+                                  }
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
+                          </div>
+                        </div>
+                        <DialogFooter>
+                          <Button onClick={handleAddAppointment}>
+                            Создать запись
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                )}
 
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Выберите время</SelectLabel>
-                            <SelectItem value="09:00">09:00</SelectItem>
-                            <SelectItem value="10:00">10:00</SelectItem>
-                            <SelectItem value="11:00">11:00</SelectItem>
-                            <SelectItem value="12:00">12:00</SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                      <Button className="w-full">
-                        <PlusCircle className="mr-2 h-4 w-4" /> Запланировать
+                {activeTab === 'settings' && (
+                  <div className="space-y-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <Bell className="h-4 w-4" />
+                          <Label htmlFor="notifications">
+                            Включить уведомления
+                          </Label>
+                        </div>
+                        <Switch
+                          id="notifications"
+                          checked={settings.notifications}
+                          onCheckedChange={() =>
+                            handleSettingChange('notifications')
+                          }
+                        />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <Mail className="h-4 w-4" />
+                          <Label htmlFor="newsletter">
+                            Подписка на рассылку
+                          </Label>
+                        </div>
+                        <Switch
+                          id="newsletter"
+                          checked={settings.newsletter}
+                          onCheckedChange={() =>
+                            handleSettingChange('newsletter')
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold">
+                        Изменение пароля
+                      </h3>
+                      <div className="space-y-2">
+                        <Label htmlFor="current-password">Текущий пароль</Label>
+                        <Input
+                          id="current-password"
+                          type="password"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="new-password">Новый пароль</Label>
+                        <Input
+                          id="new-password"
+                          type="password"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="confirm-password">
+                          Подтвердите новый пароль
+                        </Label>
+                        <Input
+                          id="confirm-password"
+                          type="password"
+                        />
+                      </div>
+                      <Button>
+                        <Lock className="mr-2 h-4 w-4" />
+                        Изменить пароль
                       </Button>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="settings">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Настройки аккаунта</CardTitle>
-                  <CardDescription>
-                    Управляйте настройками вашего аккаунта
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div className="space-y-0.5">
-                        <Label htmlFor="notifications">Уведомления</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Получать уведомления о новых сообщениях и записях
-                        </p>
-                      </div>
-                      <Switch id="notifications" />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="space-y-0.5">
-                        <Label htmlFor="newsletter">Рассылка</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Подписаться на нашу еженедельную рассылку
-                        </p>
-                      </div>
-                      <Switch id="newsletter" />
-                    </div>
-                    <Accordion
-                      type="single"
-                      collapsible
-                      className="w-full"
-                    >
-                      <AccordionItem value="security">
-                        <AccordionTrigger>Безопасность</AccordionTrigger>
-                        <AccordionContent>
-                          <div className="space-y-2">
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start"
-                            >
-                              <Lock className="mr-2 h-4 w-4" /> Изменить пароль
-                            </Button>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start"
-                            >
-                              <Mail className="mr-2 h-4 w-4" /> Изменить email
-                            </Button>
-                            <Button
-                              variant="outline"
-                              className="w-full justify-start"
-                            >
-                              <Phone className="mr-2 h-4 w-4" /> Двухфакторная
-                              аутентификация
-                            </Button>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      <AccordionItem value="privacy">
-                        <AccordionTrigger>Конфиденциальность</AccordionTrigger>
-                        <AccordionContent>
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                              <Label htmlFor="profile-visibility">
-                                Видимость профиля
-                              </Label>
-                              <Switch id="profile-visibility" />
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <Label htmlFor="data-sharing">
-                                Обмен данными
-                              </Label>
-                              <Switch id="data-sharing" />
-                            </div>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                    <div className="pt-4">
-                      <h3 className="font-semibold mb-2">Удаление аккаунта</h3>
+                    <div className="pt-6 border-t">
+                      <h3 className="text-lg font-semibold text-red-600 dark:text-red-400">
+                        Опасная зона
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        Удаление аккаунта приведет к безвозвратной потере всех
+                        данных.
+                      </p>
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <Button variant="destructive">Удалить аккаунт</Button>
+                          <Button
+                            variant="destructive"
+                            className="mt-4"
+                          >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Удалить аккаунт
+                          </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
                             <AlertDialogTitle>Вы уверены?</AlertDialogTitle>
                             <AlertDialogDescription>
-                              Это действие нельзя отменить. Оно навсегда удалит
-                              ваш аккаунт и всю связанную с ним информацию.
+                              Это действие не может быть отменено. Оно навсегда
+                              удалит ваш аккаунт и все связанные данные.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Отмена</AlertDialogCancel>
-                            <AlertDialogAction>
-                              Удалить аккаунт
+                            <AlertDialogAction className="bg-red-600 hover:bg-red-700">
+                              Удалить
                             </AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                       </AlertDialog>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </motion.div>
-        </AnimatePresence>
-      </Tabs>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

@@ -1,9 +1,5 @@
 import { Button } from '@/shared/ui/Button'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/shared/ui/Tooltip'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui/Tooltip'
 import { Info } from 'lucide-react'
 
 export function InfoTooltip() {

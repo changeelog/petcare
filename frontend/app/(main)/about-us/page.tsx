@@ -10,11 +10,7 @@ import {
 } from '@/shared/ui/Card'
 import { Heart, PawPrint, Shield, Users } from 'lucide-react'
 import { Button } from '@/shared/ui/Button'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/shared/ui/Avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/Avatar'
 
 const teamMembers = [
   {
@@ -103,7 +99,7 @@ export default function AboutUs() {
         <h2 className="text-3xl font-semibold mb-6 text-center">
           Наши ценности
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2  gap-6 mb-12">
           {values.map((value, index) => (
             <motion.div
               key={index}
@@ -135,7 +131,7 @@ export default function AboutUs() {
         <h2 className="text-3xl font-semibold mb-6 text-center">
           Наша команда
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}

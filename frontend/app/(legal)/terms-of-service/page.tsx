@@ -1,12 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/shared/ui/Card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/Card'
 import {
   Accordion,
   AccordionContent,

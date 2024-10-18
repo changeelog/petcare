@@ -1,9 +1,5 @@
 import { motion } from 'framer-motion'
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '@/shared/ui/Alert'
+import { Alert, AlertDescription, AlertTitle } from '@/shared/ui/Alert'
 import { Button } from '@/shared/ui/Button'
 import { CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'

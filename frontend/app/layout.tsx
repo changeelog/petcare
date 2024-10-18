@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { fonts } from './fonts'
+import { Toaster } from '@/shared/ui/Toaster'
 
 export const metadata: Metadata = {
   title: 'PetCare Portal',
@@ -18,6 +19,7 @@ export default function RootLayout({
         className={`${fonts.minSans.variable} ${fonts.geistSans.variable} ${fonts.geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   )
