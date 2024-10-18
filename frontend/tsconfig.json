@@ -18,9 +18,18 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/shared/*": ["./shared/*"],
+      "@/widgets/*": ["./widgets/*"],
+      "@/app/*": ["./app/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/profile/AccountSettings.txsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/profile/AccountSettings.txsx"
+  ],
   "exclude": ["node_modules"]
 }
