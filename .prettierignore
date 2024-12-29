@@ -1,0 +1,9 @@
+CHANGELOG.md
+pnpm-lock.yaml
+.changeset/*.md
+.github/**/*.md
+
+apps/docs/shaders/*
+
+**/test/out/**/*
+**/test/fixtures/*.output.*
