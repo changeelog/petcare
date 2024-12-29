@@ -13,10 +13,10 @@ export function FooterContact() {
             className="mr-2"
           />
           <a
-            href="mailto:info@petcare.com"
+            href="mailto:info@pc.com"
             className="hover:text-gray-900 dark:hover:text-white transition-colors"
           >
-            info@petcare.com
+            info@pc.com
           </a>
         </p>
       </address>
