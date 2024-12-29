@@ -22,6 +22,7 @@
     "@pc/prettier": "workspace:*",
     "@pc/lintstaged": "workspace:*",
     "@pc/commitlint": "workspace:*",
+    "@pc/stylelint": "workspace:*",
     "turbo": "^2.3.3"
   },
   "packageManager": "pnpm@9.15.2"
