@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/shared/ui/Button'
-import { Input } from '@/shared/ui/Input'
-import { Label } from '@/shared/ui/Label'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/Avatar'
-import { Card, CardContent, CardHeader } from '@/shared/ui/Card'
+import { Button } from '@pc/ui/components/ui/Button'
+import { Input } from '@pc/ui/components/ui/Input'
+import { Label } from '@pc/ui/components/ui/Label'
+import { Avatar, AvatarFallback, AvatarImage } from '@pc/ui/components/ui/Avatar'
+import { Card, CardContent, CardHeader } from '@pc/ui/components/ui/Card'
 import {
   Dialog,
   DialogContent,
@@ -15,18 +15,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/shared/ui/Dialog'
+} from '@pc/ui/components/ui/Dialog'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/shared/ui/Select'
-import { Switch } from '@/shared/ui/Switch'
-import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/Tabs'
-import { Calendar } from '@/shared/ui/Calendar'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/Popover'
+} from '@pc/ui/components/ui/Select'
+import { Switch } from '@pc/ui/components/ui/Switch'
+import { Tabs, TabsList, TabsTrigger } from '@pc/ui/components/ui/Tabs'
+import { Calendar } from '@pc/ui/components/ui/Calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@pc/ui/components/ui/Popover'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,8 +37,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/shared/ui/AlertDialog'
-import { cn } from '@/lib/utils'
+} from '@pc/ui/components/ui/AlertDialog'
+import { cn } from '$/lib/utils'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import {

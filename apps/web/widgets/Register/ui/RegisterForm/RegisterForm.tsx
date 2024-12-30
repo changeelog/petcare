@@ -8,10 +8,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/Card'
-import { TooltipProvider } from '@/shared/ui/Tooltip'
+} from '@pc/ui/components/ui/Card'
+import { TooltipProvider } from '@pc/ui/components/ui/Tooltip'
 import Link from 'next/link'
-import { useRegisterForm } from '@/hooks/useRegisterForm'
+import { useRegisterForm } from '$/hooks/useRegisterForm'
 import { EmailInput } from '../EmailInput/EmailInput'
 import { PasswordInput } from '../PasswordInput/PasswordInput'
 import { ConfirmPasswordInput } from '../ConfirmPasswordInput/ConfirmPasswordInput'

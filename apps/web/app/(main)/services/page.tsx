@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/shared/ui/Button'
+import { Button } from '@pc/ui/components/ui/Button'
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/Card'
+} from '@pc/ui/components/ui/Card'
 import {
   Dialog,
   DialogContent,
@@ -18,13 +18,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/shared/ui/Dialog'
-import { Input } from '@/shared/ui/Input'
-import { Label } from '@/shared/ui/Label'
-import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/Tabs'
-import { Calendar } from '@/shared/ui/Calendar'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/Popover'
-import { cn } from '@/lib/utils'
+} from '@pc/ui/components/ui/Dialog'
+import { Input } from '@pc/ui/components/ui/Input'
+import { Label } from '@pc/ui/components/ui/Label'
+import { Tabs, TabsList, TabsTrigger } from '@pc/ui/components/ui/Tabs'
+import { Calendar } from '@pc/ui/components/ui/Calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@pc/ui/components/ui/Popover'
+import { cn } from '$/lib/utils'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import {

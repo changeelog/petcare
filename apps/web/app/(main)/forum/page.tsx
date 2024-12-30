@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/shared/ui/Button'
-import { Input } from '@/shared/ui/Input'
-import { Textarea } from '@/shared/ui/Textarea'
+import { Button } from '@pc/ui/components/ui/Button'
+import { Input } from '@pc/ui/components/ui/Input'
+import { Textarea } from '@pc/ui/components/ui/Textarea'
 import {
   Card,
   CardContent,
@@ -12,33 +12,33 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/Card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/Avatar'
-import { Badge } from '@/shared/ui/Badge'
-import { ScrollArea } from '@/shared/ui/ScrollArea'
+} from '@pc/ui/components/ui/Card'
+import { Avatar, AvatarFallback, AvatarImage } from '@pc/ui/components/ui/Avatar'
+import { Badge } from '@pc/ui/components/ui/Badge'
+import { ScrollArea } from '@pc/ui/components/ui/ScrollArea'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/shared/ui/Select'
+} from '@pc/ui/components/ui/Select'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/shared/ui/Tooltip'
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/Popover'
+} from '@pc/ui/components/ui/Tooltip'
+import { Popover, PopoverContent, PopoverTrigger } from '@pc/ui/components/ui/Popover'
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from '@/shared/ui/Command'
+} from '@pc/ui/components/ui/Command'
 import { Check, ChevronsUpDown } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn } from '$/lib/utils'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import {

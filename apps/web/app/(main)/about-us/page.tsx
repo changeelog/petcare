@@ -7,10 +7,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/Card'
+} from '@pc/ui/components/ui/Card'
 import { Heart, PawPrint, Shield, Users } from 'lucide-react'
-import { Button } from '@/shared/ui/Button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/Avatar'
+import { Button } from '@pc/ui/components/ui/Button'
+import { Avatar, AvatarFallback, AvatarImage } from '@pc/ui/components/ui/Avatar'
 
 const teamMembers = [
   {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Button } from '@/shared/ui/Button'
+import { Button } from '@pc/ui/components/ui/Button'
 import { Search } from 'lucide-react'
 
 interface SearchButtonProps {

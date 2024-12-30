@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { fonts } from './fonts'
-import { Toaster } from '@/shared/ui/Toaster'
+import { Toaster } from '@pc/ui/components/ui/Toaster'
 
 export const metadata: Metadata = {
   title: 'PetCare Portal',

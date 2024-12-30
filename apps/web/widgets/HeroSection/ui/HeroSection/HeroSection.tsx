@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { HeroContent } from '../HeroContent/HeroContent'
 import { SearchButton } from '../SearchButton/SearchButton'
 import { SearchModal } from '../SearchModal/SearchModal'
-import { useKeyPress } from '@/hooks/useKeyPress'
+import { useKeyPress } from '$/hooks/useKeyPress'
 
 export const HeroSection: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false)

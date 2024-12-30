@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react'
-import { useDebounce } from '@/hooks/useDebounce'
+import { useDebounce } from '$/hooks/useDebounce'
 import { SearchResult } from '../model/types'
 
 export const useSearch = () => {

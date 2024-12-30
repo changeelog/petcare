@@ -9,18 +9,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/Card'
-import { Button } from '@/shared/ui/Button'
-import { Input } from '@/shared/ui/Input'
-import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/Tabs'
-import { ScrollArea } from '@/shared/ui/ScrollArea'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui/Avatar'
+} from '@pc/ui/components/ui/Card'
+import { Button } from '@pc/ui/components/ui/Button'
+import { Input } from '@pc/ui/components/ui/Input'
+import { Tabs, TabsList, TabsTrigger } from '@pc/ui/components/ui/Tabs'
+import { ScrollArea } from '@pc/ui/components/ui/ScrollArea'
+import { Avatar, AvatarFallback, AvatarImage } from '@pc/ui/components/ui/Avatar'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/shared/ui/Accordion'
+} from '@pc/ui/components/ui/Accordion'
 import {
   Dialog,
   DialogContent,
@@ -29,9 +29,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/shared/ui/Dialog'
-import { Label } from '@/shared/ui/Label'
-import { Textarea } from '@/shared/ui/Textarea'
+} from '@pc/ui/components/ui/Dialog'
+import { Label } from '@pc/ui/components/ui/Label'
+import { Textarea } from '@pc/ui/components/ui/Textarea'
 import { Search, ThumbsUp, MessageSquare, Share2, Bookmark } from 'lucide-react'
 
 const categories = ['Все', 'Кошки', 'Собаки', 'Грызуны', 'Птицы', 'Рептилии']

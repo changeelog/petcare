@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useKeyPress } from '@/hooks/useKeyPress'
+import { useKeyPress } from '$/hooks/useKeyPress'
 import { SearchResult } from '../model/types'
 
 export const useSearchKeyboardNavigation = (

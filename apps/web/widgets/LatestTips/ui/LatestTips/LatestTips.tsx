@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/shared/ui/Tabs'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@pc/ui/components/ui/Tabs'
 import { useFilteredTips } from '../../lib/useFilteredTips'
 import { TipCard } from '../TipCard'
 

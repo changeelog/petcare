@@ -1,16 +1,10 @@
-import 'server-only';
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { PrismaNeon } from '@prisma/adapter-neon';
-import { PrismaClient } from '@prisma/client';
-import { env } from '@pc/env';
-import ws from 'ws';
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
-neonConfig.webSocketConstructor = ws;
+const db = drizzle({ client: pool });
 
-const pool = new Pool({ connectionString: env.DATABASE_URL });
-const adapter = new PrismaNeon(pool);
-
-export const database = new PrismaClient({ adapter });
-
-export * from '@prisma/client';
+export const database = db;

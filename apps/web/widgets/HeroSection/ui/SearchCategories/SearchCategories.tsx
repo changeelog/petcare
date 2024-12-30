@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '@/shared/ui/Button'
+import { Button } from '@pc/ui/components/ui/Button'
 import { motion } from 'framer-motion'
 import { searchCategories } from '../../config/searchCategories'
 

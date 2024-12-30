@@ -3,7 +3,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from '@/shared/ui/Alert'
+} from '@pc/ui/components/ui/Alert'
 import { CheckCircle2 } from 'lucide-react'
 
 export function SuccessMessage() {

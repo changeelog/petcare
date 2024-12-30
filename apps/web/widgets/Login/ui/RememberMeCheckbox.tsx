@@ -1,5 +1,5 @@
-import { Checkbox } from '@/shared/ui/Checkbox'
-import { Label } from '@/shared/ui/Label'
+import { Checkbox } from '@pc/ui/components/ui/Checkbox'
+import { Label } from '@pc/ui/components/ui/Label'
 
 interface RememberMeCheckboxProps {
   checked: boolean

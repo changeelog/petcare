@@ -9,14 +9,14 @@ import {
   CardContent,
   CardFooter,
   CardDescription,
-} from '@/shared/ui/Card'
-import { Button } from '@/shared/ui/Button'
+} from '@pc/ui/components/ui/Card'
+import { Button } from '@pc/ui/components/ui/Button'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/shared/ui/Tooltip'
+} from '@pc/ui/components/ui/Tooltip'
 import { InfoIcon } from 'lucide-react'
 import Image from 'next/image'
 

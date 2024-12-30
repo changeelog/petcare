@@ -5,8 +5,8 @@ import {
   CardTitle,
   CardContent,
   CardFooter,
-} from '@/shared/ui/Card'
-import { Button } from '@/shared/ui/Button'
+} from '@pc/ui/components/ui/Card'
+import { Button } from '@pc/ui/components/ui/Button'
 import { Tip } from '../../model/types'
 
 interface TipCardProps {

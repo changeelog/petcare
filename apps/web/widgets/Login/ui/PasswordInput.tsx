@@ -1,7 +1,7 @@
-import { Input } from '@/shared/ui/Input'
-import { Label } from '@/shared/ui/Label'
+import { Input } from '@pc/ui/components/ui/Input'
+import { Label } from '@pc/ui/components/ui/Label'
 import { motion } from 'framer-motion'
-import { inputVariants } from '@/lib/animation'
+import { inputVariants } from '$/lib/animation'
 
 interface PasswordInputProps {
   value: string

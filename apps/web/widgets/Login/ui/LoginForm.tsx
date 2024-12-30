@@ -8,10 +8,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/Card'
-import { Button } from '@/shared/ui/Button'
+} from '@pc/ui/components/ui/Card'
+import { Button } from '@pc/ui/components/ui/Button'
 import Link from 'next/link'
-import { useLoginForm } from '@/hooks/useLoginForm'
+import { useLoginForm } from '$/hooks/useLoginForm'
 import { EmailInput } from './EmailInput'
 import { PasswordInput } from './PasswordInput'
 import { RememberMeCheckbox } from './RememberMeCheckbox'

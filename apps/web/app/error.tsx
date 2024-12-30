@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/shared/ui/Button'
+import { Button } from '@pc/ui/components/ui/Button'
 import { AlertTriangle, ArrowLeft, Home } from 'lucide-react'
 
 export default function Error({

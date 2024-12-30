@@ -1,7 +1,6 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 // @ts-expect-error No declaration file
-import { PrismaPlugin } from '@prisma/nextjs-monorepo-workaround-plugin';
 import { env } from '@pc/env';
 import { withSentryConfig } from '@sentry/nextjs';
 import withVercelToolbar from '@vercel/toolbar/plugins/next';
@@ -40,7 +39,7 @@ const baseConfig: NextConfig = {
 
   webpack(config, { isServer }) {
     if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()];
+      config.plugins = [...config.plugins];
     }
 
     config.ignoreWarnings = [{ module: otelRegex }];

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
-import { Input } from '@/shared/ui/Input'
-import { Button } from '@/shared/ui/Button'
+import { Input } from '@pc/ui/components/ui/Input'
+import { Button } from '@pc/ui/components/ui/Button'
 import { Search, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 

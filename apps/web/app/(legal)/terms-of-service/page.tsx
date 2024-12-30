@@ -1,15 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/Card'
+import { Card, CardContent, CardHeader, CardTitle } from '@pc/ui/components/ui/Card'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/shared/ui/Accordion'
-import { Button } from '@/shared/ui/Button'
-import { ScrollArea } from '@/shared/ui/ScrollArea'
+} from '@pc/ui/components/ui/Accordion'
+import { Button } from '@pc/ui/components/ui/Button'
+import { ScrollArea } from '@pc/ui/components/ui/ScrollArea'
 import { AlertCircle, CheckCircle, HelpCircle } from 'lucide-react'
 
 const sections = [
