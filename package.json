@@ -18,10 +18,10 @@
     "format": "turbo run format"
   },
   "dependencies": {
-    "@pc/eslint": "workspace:*",
-    "@pc/prettier": "workspace:*",
-    "@pc/lintstaged": "workspace:*",
     "@pc/commitlint": "workspace:*",
+    "@pc/eslint": "workspace:*",
+    "@pc/lintstaged": "workspace:*",
+    "@pc/prettier": "workspace:*",
     "@pc/stylelint": "workspace:*",
     "turbo": "^2.3.3"
   },
