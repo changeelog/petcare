@@ -1,6 +1,8 @@
 import { SignIn as ClerkSignIn } from '@clerk/nextjs';
 
-export const SignIn = () => (
+
+function SignIn () {
+return (
   <ClerkSignIn
     appearance={{
       elements: {
@@ -8,4 +10,7 @@ export const SignIn = () => (
       },
     }}
   />
-);
+)
+};
+
+export { SignIn }

@@ -3,16 +3,15 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import type { Theme } from '@clerk/types';
-import { tailwind } from '@pc/tailwind-config';
+import { tailwind } from '@pc/tailwind';
 import { useTheme } from 'next-themes';
 import type { ComponentProps } from 'react';
 
-export const AuthProvider = (
-  properties: ComponentProps<typeof ClerkProvider>
-) => {
+function AuthProvider(properties: ComponentProps<typeof ClerkProvider>) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
   const baseTheme = isDark ? dark : undefined;
+
   const variables: Theme['variables'] = {
     // Core
     fontFamily: tailwind.theme.fontFamily.sans.join(', '),
@@ -43,4 +42,6 @@ export const AuthProvider = (
       appearance={{ baseTheme, variables, elements }}
     />
   );
-};
+}
+
+export { AuthProvider }

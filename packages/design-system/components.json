@@ -10,10 +10,10 @@
     "cssVariables": true
   },
   "aliases": {
-    "components": "@pc/design-system/components",
-    "utils": "@pc/design-system/lib/utils",
-    "hooks": "@pc/design-system/hooks",
-    "lib": "@pc/design-system/lib",
-    "ui": "@pc/design-system/components/ui"
+    "components": "@pc/ui/components",
+    "utils": "@pc/ui/lib/utils",
+    "hooks": "@pc/ui/hooks",
+    "lib": "@pc/ui/lib",
+    "ui": "@pc/ui/components/ui"
   }
 }
