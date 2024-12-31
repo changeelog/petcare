@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/tsconfig.react-library.json",
+  "extends": "@pc/tsconfig/react-library",
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",

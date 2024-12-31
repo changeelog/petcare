@@ -1,31 +1,31 @@
 {
-    "name": "@pc/prettier",
-    "version": "0.0.0",
-    "description": "Shareable Prettier configurations for a monorepo",
-    "license": "MIT",
-    "private": "true",
-    "author": {
-        "name": "idkgene",
-        "url": "https://github.com/idkgene"
-    },
-    "homepage": "https://github.com/idkgene/sharedlint#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/idkgene/sharedlint.git"
-    },
-    "bugs": {
-        "url": "https://github.com/idkgene/sharedlint/issues"
-    },
-    "keywords": [
-        "prettier",
-        "shareable-config",
-        "code-formatting",
-        "style",
-        "linter"
-    ],
-    "main": "index.js",
-    "peerDependencies": {
-        "prettier": "^3.2.5",
-        "prettier-plugin-packagejson": "^2.4.12"
-    }
+  "name": "@pc/prettier",
+  "version": "0.0.0",
+  "private": "true",
+  "description": "Shareable Prettier configurations for a monorepo",
+  "keywords": [
+    "prettier",
+    "shareable-config",
+    "code-formatting",
+    "style",
+    "linter"
+  ],
+  "homepage": "https://github.com/idkgene/petcare#readme",
+  "bugs": {
+    "url": "https://github.com/idkgene/petcare/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idkgene/petcare"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Gene",
+    "url": "https://github.com/idkgene"
+  },
+  "main": "index.js",
+  "peerDependencies": {
+    "prettier": "^3.2.5",
+    "prettier-plugin-packagejson": "^2.4.12"
+  }
 }

@@ -8,23 +8,24 @@
     "tsconfig.next.json",
     "tsconfig.react-library.json"
   ],
+  "homepage": "https://github.com/idkgene/petcare#readme",
+  "bugs": {
+    "url": "https://github.com/idkgene/petcare/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/idkgene/sharedlint.git"
+    "url": "https://github.com/idkgene/petcare"
   },
+  "license": "MIT",
   "author": {
-    "name": "idkgene",
+    "name": "Gene",
     "url": "https://github.com/idkgene"
-  },
-  "bugs": {
-    "url": "https://github.com/idkgene/sharedlint/issues"
   },
   "exports": {
     ".": "./base.json",
-    "./next": "./tsconfig.next.json",
-    "./react-library": "./tsconfig.react-library.json"
+    "./next": "./next.json",
+    "./react-library": "./react-library.json"
   },
-  "homepage": "https://github.com/idkgene/sharedlint#readme",
   "keywords": [
     "typescript",
     "tsconfig",
@@ -35,7 +36,6 @@
     "react",
     "library"
   ],
-  "license": "MIT",
   "private": "true",
   "peerDependencies": {
     "typescript": ">=5.0.0"

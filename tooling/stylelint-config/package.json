@@ -1,8 +1,20 @@
 {
   "name": "@pc/stylelint",
   "version": "0.0.0",
-  "license": "MIT",
   "private": "true",
+  "homepage": "https://github.com/idkgene/petcare#readme",
+  "bugs": {
+    "url": "https://github.com/idkgene/petcare/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idkgene/petcare"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Gene",
+    "url": "https://github.com/idkgene"
+  },
   "peerDependencies": {
     "stylelint": "^16.12.0",
     "stylelint-config-standard-scss": "^14.0.0"

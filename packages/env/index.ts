@@ -19,8 +19,6 @@ const server: Parameters<typeof createEnv>[0]['server'] = {
       z.string().min(1).startsWith('testsk_'),
     ])
     .optional(),
-  LIVEBLOCKS_SECRET: z.string().min(1).startsWith('sk_').optional(),
-  OPENAI_API_KEY: z.string().min(1).startsWith('sk-').optional(),
   BASEHUB_TOKEN: z.string().min(1).startsWith('bshb_pk_'),
   UPSTASH_REDIS_REST_URL: z.string().min(1).url().optional(),
   UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
@@ -76,8 +74,6 @@ export const env = createEnv({
     FLAGS_SECRET: process.env.FLAGS_SECRET,
     BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
     SVIX_TOKEN: process.env.SVIX_TOKEN,
-    LIVEBLOCKS_SECRET: process.env.LIVEBLOCKS_SECRET,
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     BASEHUB_TOKEN: process.env.BASEHUB_TOKEN,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,

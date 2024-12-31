@@ -1,8 +1,8 @@
 {
-  "extends": "@pc/tsconfig/react-library",
+  "extends": "@pc/tsconfig/react-library.json",
   "compilerOptions": {
     "baseUrl": "."
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["./src/*.tsx"],
   "exclude": ["node_modules"]
 }

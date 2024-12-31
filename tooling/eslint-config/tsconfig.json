@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "strict": true,
+    "moduleResolution": "Node",
+    "target": "ESNext",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "strict": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@pc/eslint/*": ["./src/*"]
+    }
   },
-  "include": ["**/*.ts"],
-  "exclude": ["./fixtures/**/*.*", "./_fixtures/**/*.*"]
+  "include": ["src/**/*"]
 }

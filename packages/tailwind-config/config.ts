@@ -7,9 +7,9 @@ import typographyConfig from './typography.config';
 export const config: Config = {
   darkMode: ['class'],
   content: [
-    './node_modules/@pc/design-system/components/**/*.{ts,tsx}',
-    './node_modules/@pc/design-system/lib/**/*.{ts,tsx}',
-    './node_modules/@pc/design-system/index.tsx',
+    './node_modules/@pc/ui/components/**/*.{ts,tsx}',
+    './node_modules/@pc/ui/lib/**/*.{ts,tsx}',
+    './node_modules/@pc/ui/index.tsx',
     './components/**/*.{ts,tsx}',
     './lib/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',

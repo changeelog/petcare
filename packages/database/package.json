@@ -12,7 +12,6 @@
   "dependencies": {
     "@libsql/client": "^0.14.0",
     "@pc/env": "workspace:*",
-    "@types/pg": "^8.11.10",
     "dotenv": "^16.4.7",
     "drizzle-kit": "^0.30.1",
     "drizzle-orm": "^0.38.3",
@@ -22,6 +21,7 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
+    "@types/pg": "^8.11.10",
     "@pc/tsconfig": "workspace:*",
     "@types/node": "22.10.1",
     "@types/ws": "^8.5.13",
