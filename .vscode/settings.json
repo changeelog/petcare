@@ -12,14 +12,11 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "emmet.showExpandedAbbreviation": "never",
-  "tailwindCSS.experimental.configFile": "./packages/tailwind-config/config.ts",
   "typescript.tsdk": "node_modules/typescript/lib",
 
   "editor.codeActionsOnSave": {
