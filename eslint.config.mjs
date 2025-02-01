@@ -1,19 +1,6 @@
-import gene from "@pc/eslint/src/index.js";
+import antfu from '@antfu/eslint-config'
 
-export default gene(
-  {
-    react: true,
-    typescript: true,
-    formatters: true,
-    type: "lib",
-  },
-  {
-    ignores: ["fixtures", "_fixtures"],
-  },
-  {
-    files: ["src/**/*.ts"],
-    rules: {
-      "perfectionist/sort-objects": "error",
-    },
-  },
-);
+export default antfu({
+  formatters: true,
+  react: true,
+})
