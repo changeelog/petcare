@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { LogIn } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useResponsiveMenu } from '../../hooks/use-responsive-menu'
 import { cn } from '../../lib/utils'
 import { LogoWithText } from '../logo-text'
 
@@ -149,13 +150,13 @@ function Navigation() {
             <LogoWithText />
           </Link>
 
-          <nav className="absolute left-1/2 -translate-x-1/2 hidden sm:flex items-center h-8 space-x-1 rounded-full px-1.5">
+          <nav className="absolute left-1/2 -translate-x-1/2 hidden sm:flex items-center h-8 lg:space-x-1 rounded-full px-1.5">
             {NAVIGATION_ITEMS.map(({ href, label }) => (
               <NavigationLink
                 key={href}
                 href={href}
                 className={`
-                  relative px-4 py-1.5 text-base font-medium rounded-full transition-all duration-200
+                  relative px-2.5 lg:px-4 py-1.5 text-sm lg:text-base font-medium rounded-full transition-all duration-200
                   ${pathname === href
                 ? 'text-primary bg-background shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
@@ -173,7 +174,7 @@ function Navigation() {
           >
             <Link
               href="/login"
-              className="inline-flex items-center px-6 py-2.5 text-sm font-medium text-primary-foreground bg-primary rounded-xl transition-colors hover:bg-primary/90"
+              className="inline-flex items-center px-3 py-1.5 lg:px-6 lg:py-2 text-base font-medium text-primary-foreground bg-primary rounded-xl transition-colors hover:bg-primary/90"
             >
               Войти
               <LogIn className="w-4 h-4 ml-2" />
@@ -221,11 +222,10 @@ function Navigation() {
                   <div className="pt-2 mt-2 border-t border-border/40">
                     <Link
                       href="/login"
-                      className="flex items-center w-full px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+                      className="flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors"
                       onClick={closeMenu}
                     >
                       Войти
-                      <LogIn className="w-4 h-4 ml-2" />
                     </Link>
                   </div>
                 </nav>
