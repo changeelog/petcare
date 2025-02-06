@@ -11,14 +11,27 @@
     "root"
   ],
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently \"pnpm:dev:next\" \"pnpm:dev:db:watch\"",
+    "dev:next": "next dev -p 8080 --turbo",
+    "dev:db:watch": "pnpm drizzle:migrate:dev --watch",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8080",
     "lint": "next lint",
-    "drizzle:migrate:dev": "drizzle-kit migrate --config=drizzle-dev.config.ts",
-    "drizzle:generate:dev": "drizzle-kit generate --config=drizzle-dev.config.ts",
-    "drizzle:migrate:prod": "drizzle-kit migrate --config=drizzle-prod.config.ts",
-    "drizzle:generate:prod": "drizzle-kit generate --config=drizzle-prod.config.ts"
+    "lint:fix": "eslint --fix .",
+    "typecheck": "tsc --noEmit",
+    "generate:vscode": "node scripts/setup-vscode.mjs",
+    "drizzle:migrate:dev": "drizzle-kit migrate:sqlite --config=drizzle-dev.config.ts --out=./server/db/migrations/development",
+    "drizzle:generate:dev": "drizzle-kit generate:sqlite --config=drizzle-dev.config.ts --out=./server/db/migrations/development",
+    "drizzle:migrate:prod": "drizzle-kit migrate:sqlite --config=drizzle-prod.config.ts --out=./server/db/migrations/production",
+    "drizzle:generate:prod": "drizzle-kit generate:sqlite --config=drizzle-prod.config.ts --out=./server/db/migrations/production",
+    "drizzle:studio:dev": "drizzle-kit studio --config=drizzle-dev.config.ts",
+    "drizzle:studio:prod": "drizzle-kit studio --config=drizzle-prod.config.ts",
+    "prepare": "simple-git-hooks",
+    "eslint:inspect": "npx @eslint/config-inspector@latest",
+    "modules:inspect": "pnpx node-modules-inspector",
+    "prebuild": "pnpm drizzle:migrate:prod",
+    "db:push:dev": "drizzle-kit push:sqlite --config=drizzle-dev.config.ts",
+    "db:push:prod": "drizzle-kit push:sqlite --config=drizzle-prod.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -109,6 +122,7 @@
     "lint-staged": "^15.4.3",
     "simple-git-hooks": "^2.11.1",
     "tailwindcss": "^3.4.16",
+    "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   },
